@@ -1,6 +1,7 @@
 import random
 import datetime
 from customer import Customer
+from random import Random
 
 atm = Customer(id)
 
@@ -8,7 +9,7 @@ while True:
     id = int(input("Masukkan pin anda: "))
     trial = 0
     
-    while (id != int(atm.checkPin())) and trial < 3):
+    while (id != int(atm.checkPin()) and trial < 3 ):
         id = int(input("Pin anda salah. silakan masukkan lagi: "))
         trial += 1
         
@@ -40,8 +41,40 @@ while True:
                     print("Maaf. Saldo anda tidak cukup untuk melakukan debet!")
                     print("Silahkan lakukan penambahan nominal saldo")
             elif selectmenu == 3:
+                nominal = float(input("Masukkan nominal saldo: "))
+                verify_deposit = input("Konfirmasi: Anda akan melakukan penyimpanan dengan nominal berikut ? y/n " + str(nominal) + " ")
+                
+                if verify_deposit == "y":
+                    atm.depositbalance(nominal)
+                    print("Saldo anda sekarang adalah: Rp. " + str(atm.checkBalance()) + "\n")
+                else:
+                    break
+                    
             elif selectmenu == 4:
+               verify_pin = int(input("Masukkan pin anda:"))
+               
+               while verify_pin != int(atm.checkPin()):
+                   print("Pin anda salah, silahkan masukkan pin: ")
+                   exit("Status :" + str(atm.Error))
+                   
+                updated_pin = int(input("Silahkan masukkan pin baru: "))
+                print("Pin anda berhasil diganti!")
+                
+                verify_newpin = int(input("Coba masukkan pin baru: "))
+                
+                if verify_newpin == updated_pin:
+                    print("Pin baru anda sukses!")
+                else:
+                    print("Maaf, pin anda salah!") 
+                    
             elif selectmenu == 5:
+                print("Resi tercetak otomatis saat anda keluar. \n Harap simpan tanda terima ini \n sebagai bukti transaksi anda.")
+                print("No. Rekord: ", random.randint(100000, 1000000))
+                print("Tanggal: ", datetime.datetime.now())
+                print("Saldo akhir: " atm.checkBalance())
+                print("Terima kasih telah menggunakan ATM Progate!")
+                exit()
+                
             else:
-            
-            
+                print("Error. Maaf, menu tidak tersedia")
+                
