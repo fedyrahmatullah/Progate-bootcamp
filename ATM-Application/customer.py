@@ -17,5 +17,6 @@ class Customer:
         def depositBalance(self, nominal):
             self.balance += nominal
             
-        def Error(self):
+        # error    
+        def Error(self): 
             return LookupError.with_traceback()
